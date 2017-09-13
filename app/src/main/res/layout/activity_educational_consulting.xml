@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.haoyu.app.view.AppToolBar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:show_right_button="false"
+        app:title_text="教务咨询" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/margin_size_16"
+        android:layout_marginRight="@dimen/margin_size_16"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:drawablePadding="@dimen/margin_size_10"
+            android:drawableTop="@drawable/education_consult"
+            android:gravity="center_horizontal"
+            android:text="服务热线"
+            android:textSize="@dimen/font_size_25" />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:gravity="center_horizontal"
+            android:text="0759-3182675"
+            android:textColor="@color/defaultColor"
+            android:textSize="@dimen/font_size_30" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="（点击号码拨号咨询）"
+            android:textColor="@color/defaultColor" />
+    </LinearLayout>
+</RelativeLayout>

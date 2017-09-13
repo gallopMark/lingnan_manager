@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/person_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/person_img"
+            android:layout_width="@dimen/margin_size_50"
+            android:layout_height="@dimen/margin_size_50"
+            android:layout_margin="@dimen/margin_size_10"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/person_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/person_img"
+            android:layout_toEndOf="@+id/person_img"
+            android:layout_toRightOf="@+id/person_img"
+            android:text=""
+            android:textColor="@color/defaultColor"
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/person_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/person_img"
+            android:layout_toEndOf="@+id/person_img"
+            android:layout_toRightOf="@+id/person_img"
+            android:text=""
+            android:textColor="@color/faq_title"
+            android:textSize="@dimen/font_size_14" />
+
+        <TextView
+            android:id="@+id/person_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/person_school"
+            android:drawableLeft="@drawable/xueshi"
+            android:drawablePadding="@dimen/margin_size_5"
+            android:paddingRight="@dimen/margin_size_10"
+            android:text=""
+            android:textColor="@color/faq_title"
+            android:textSize="@dimen/font_size_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_1"
+            android:layout_alignLeft="@+id/person_img"
+            android:layout_below="@+id/person_img"
+            android:background="@color/spaceColor" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

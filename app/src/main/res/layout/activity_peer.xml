@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defaultColor">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_title"
+            android:layout_alignTop="@+id/tv_title"
+            android:background="@drawable/app_toolbar_selector"
+            android:paddingLeft="@dimen/margin_size_20"
+            android:paddingRight="@dimen/margin_size_20"
+            android:src="@drawable/app_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="@dimen/margin_size_12"
+            android:text="同行"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textsize" />
+
+    </RelativeLayout>
+
+    <com.haoyu.app.xrecyclerview.XRecyclerView
+        android:id="@+id/xrecycleview_peer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_size_10" />
+</LinearLayout>

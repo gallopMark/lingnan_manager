@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defaultColor">
+
+        <ImageView
+            android:id="@+id/re_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/student_achievement_title"
+            android:layout_alignTop="@+id/student_achievement_title"
+            android:background="@drawable/app_toolbar_selector"
+            android:paddingLeft="@dimen/back_padding"
+            android:paddingRight="@dimen/back_padding"
+            android:src="@drawable/app_back" />
+
+        <TextView
+            android:id="@+id/student_achievement_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/title_padding"
+            android:text="学员成绩"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textsize" />
+    </RelativeLayout>
+
+    <com.haoyu.app.view.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <com.haoyu.app.view.LoadFailView
+        android:id="@+id/loadFailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/contentView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/spaceColor">
+
+                <TextView
+                    android:id="@+id/base_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/student_baioti"
+                    android:drawablePadding="@dimen/margin_size_5"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="基本信息" />
+
+                <TextView
+                    android:id="@+id/course_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/base_info"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/student_baioqian"
+                    android:gravity="right|bottom"
+                    android:paddingBottom="@dimen/margin_size_5"
+                    android:paddingLeft="@dimen/margin_size_12"
+                    android:paddingRight="@dimen/margin_size_5"
+                    android:paddingTop="@dimen/margin_size_5"
+                    android:textColor="@color/red_text" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="姓名"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_size_12"
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_1"
+                    android:layout_below="@+id/person_name"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="所在单位"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/person_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_size_12"
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_1"
+                    android:layout_below="@+id/person_unit"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="身份证号"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/id_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="420723199002016018"
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_12"
+                    android:layout_below="@+id/id_card"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="参与项目"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/join_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_train"
+                    android:padding="@dimen/margin_size_12"
+                    android:text=""
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_1"
+                    android:layout_below="@+id/join_project"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="培训期次"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/train_semester"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_size_12"
+                    android:text=""
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_size_1"
+                android:layout_below="@+id/train_semester"
+                android:layout_marginLeft="@dimen/margin_size_12"
+                android:background="@color/spaceColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_tiem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="培训时间"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/train_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_tiem"
+                    android:padding="@dimen/margin_size_12"
+                    android:textColor="@color/faq_title"
+                    android:textSize="@dimen/font_size_16" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/spaceColor">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/student_baioti"
+                    android:drawablePadding="@dimen/margin_size_5"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="考核内容" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="课程学习"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/course_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/course"
+                    android:layout_toRightOf="@+id/course"
+                    android:background="@drawable/border"
+                    android:paddingBottom="@dimen/margin_size_2"
+                    android:paddingLeft="@dimen/margin_size_5"
+                    android:paddingRight="@dimen/margin_size_5"
+                    android:paddingTop="@dimen/margin_size_2"
+                    android:textColor="@color/defaultColor"
+                    android:textSize="@dimen/font_size_13" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_size_12"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_course_state"
+                        android:layout_width="@dimen/margin_size_15"
+                        android:layout_height="@dimen/margin_size_15"
+                        android:layout_gravity="center"
+                        android:src="@drawable/state_qualified" />
+
+                    <TextView
+                        android:id="@+id/course_learn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_size_4"
+                        android:textColor="@color/faq_title"
+                        android:textSize="@dimen/font_size_16" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/workgroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="工作坊研修"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/workgroup_reaearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/workgroup"
+                    android:layout_toRightOf="@+id/workgroup"
+                    android:background="@drawable/border"
+                    android:paddingBottom="@dimen/margin_size_2"
+                    android:paddingLeft="@dimen/margin_size_5"
+                    android:paddingRight="@dimen/margin_size_5"
+                    android:paddingTop="@dimen/margin_size_2"
+                    android:textColor="@color/defaultColor"
+                    android:textSize="@dimen/font_size_13" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_size_12"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_workgroup_state"
+                        android:layout_width="@dimen/margin_size_15"
+                        android:layout_height="@dimen/margin_size_15"
+                        android:layout_gravity="center"
+                        android:src="@drawable/state_excellent" />
+
+                    <TextView
+                        android:id="@+id/workgroup_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_size_4"
+                        android:textColor="@color/faq_title"
+                        android:textSize="@dimen/font_size_16" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_size_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:background="@color/spaceColor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/society_base"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="社区拓展"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/society"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/society_base"
+                    android:layout_toRightOf="@+id/society_base"
+                    android:background="@drawable/border"
+                    android:paddingBottom="@dimen/margin_size_2"
+                    android:paddingLeft="@dimen/margin_size_5"
+                    android:paddingRight="@dimen/margin_size_5"
+                    android:paddingTop="@dimen/margin_size_2"
+                    android:textColor="@color/defaultColor"
+                    android:textSize="@dimen/font_size_13"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_size_12"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_society_state"
+                        android:layout_width="@dimen/margin_size_15"
+                        android:layout_height="@dimen/margin_size_15"
+                        android:layout_gravity="center"
+                        android:src="@drawable/state_evaluate" />
+
+                    <TextView
+                        android:id="@+id/society_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_size_4"
+                        android:textColor="@color/faq_title"
+                        android:textSize="@dimen/font_size_16" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/spaceColor">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/student_baioti"
+                    android:drawablePadding="@dimen/margin_size_5"
+                    android:padding="@dimen/margin_size_12"
+                    android:text="选课成绩" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_warn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:textSize="@dimen/font_size_18"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
