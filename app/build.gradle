@@ -29,22 +29,26 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:design:26.0.0-alpha1'
+    /*libs*/
     compile files('libs/pldroid-player-1.3.0.jar')
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/PersistentCookieJar-v1.0.0.jar')
+    /*okHttp3*/
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    /*compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'*/
+    /*gson*/
+    compile 'com.google.code.gson:gson:2.8.1'
+
+    /*project*/
     compile project(':MPChart')
     compile project(':zxingLib')
-    compile 'com.google.code.gson:gson:2.8.0'
     /*glide*/
     compile 'com.github.bumptech.glide:glide:3.7.0'
     /*fileDownloader*/
 //    compile 'com.liulishuo.filedownloader:library:1.6.2'
     /*rxjava2*/
-    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     /*greenDao*/
 //    compile 'org.greenrobot:greendao:3.2.0'
