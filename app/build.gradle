@@ -7,8 +7,8 @@ android {
         applicationId "com.haoyu.app.lingnan.manager"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.1.4"
+        versionCode 6
+        versionName "1.1.6"
         multiDexEnabled = true;
     }
     buildTypes {
