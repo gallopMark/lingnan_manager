@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -130,9 +131,15 @@ public class ManagerHomePageActivity extends BaseActivity implements View.OnClic
         GlideImgManager.loadCircleImage(context, getAvatar(), R.drawable.user_default,
                 R.drawable.user_default, iv_userIco);
         tv_userName = getView(menuView, R.id.tv_userName);
-        tv_userName.setText(getRealName());
         tv_deptName = getView(menuView, R.id.tv_deptName);
-        tv_deptName.setText(getDeptName());
+        if (TextUtils.isEmpty(getRealName()))
+            tv_userName.setText("请填写用户名");
+        else
+            tv_userName.setText(getRealName());
+        if (TextUtils.isEmpty(getDeptName()))
+            tv_deptName.setText("请选择单位");
+        else
+            tv_deptName.setText(getDeptName());
         TextView tv_monitor = getView(menuView, R.id.tv_monitor);
         tv_monitor.setOnClickListener(context);
         TextView tv_teaching = getView(menuView, R.id.tv_teaching);
@@ -421,7 +428,7 @@ public class ManagerHomePageActivity extends BaseActivity implements View.OnClic
         } else if ((result.startsWith("http") || result.startsWith("https"))) {  //扫一扫签到
             if (result.contains(Constants.REFERER))
                 signedOn(result);
-            else{
+            else {
                 Intent intent = new Intent(context, WebActivity.class);
                 intent.putExtra("url", result);
                 startActivity(intent);
