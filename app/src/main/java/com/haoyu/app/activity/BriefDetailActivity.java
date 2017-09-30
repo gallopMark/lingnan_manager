@@ -72,7 +72,7 @@ public class BriefDetailActivity extends BaseActivity {
     private void updateUI(AnnouncementEntity entity) {
         tv_title.setText(entity.getTitle());
         tv_createDate.setText(TimeUtil.getDateHR(entity.getCreateTime()));
-        tv_content.setHtml(entity.getContent(),new HtmlHttpImageGetter(tv_content));
+        tv_content.setHtml(entity.getContent(), new HtmlHttpImageGetter(tv_content, Constants.REFERER));
     }
 
     @Override
