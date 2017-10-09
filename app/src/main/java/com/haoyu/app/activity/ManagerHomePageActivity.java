@@ -26,8 +26,10 @@ import com.haoyu.app.base.BaseActivity;
 import com.haoyu.app.base.BaseResponseResult;
 import com.haoyu.app.base.ExitApplication;
 import com.haoyu.app.entity.CaptureResult;
+import com.haoyu.app.entity.MobileUser;
 import com.haoyu.app.entity.MyTrainListResult;
 import com.haoyu.app.entity.MyTrainMobileEntity;
+import com.haoyu.app.entity.UserInfoResult;
 import com.haoyu.app.fragment.TrainBriefFragment;
 import com.haoyu.app.fragment.TrainMonitorFragment;
 import com.haoyu.app.fragment.TrainProcessFragment;
@@ -150,6 +152,37 @@ public class ManagerHomePageActivity extends BaseActivity implements View.OnClic
         tv_consulting.setOnClickListener(context);
         TextView tv_settings = getView(menuView, R.id.tv_settings);
         tv_settings.setOnClickListener(context);
+        getUserInfo();
+    }
+
+    private void getUserInfo() {
+        String url = Constants.OUTRT_NET + "/m/user/" + getUserId();
+        addSubscription(OkHttpClientManager.getAsyn(context, url, new OkHttpClientManager.ResultCallback<UserInfoResult>() {
+
+            @Override
+            public void onError(Request request, Exception e) {
+            }
+
+            @Override
+            public void onResponse(UserInfoResult response) {
+                if (response != null && response.getResponseData() != null) {
+                    updateUI(response.getResponseData());
+                }
+            }
+        }));
+    }
+
+    private void updateUI(MobileUser user) {
+        GlideImgManager.loadCircleImage(context.getApplicationContext(), user.getAvatar(), R.drawable.user_default,
+                R.drawable.user_default, iv_userIco);
+        if (TextUtils.isEmpty(user.getRealName()))
+            tv_userName.setText("请填写用户名");
+        else
+            tv_userName.setText(user.getRealName());
+        if (user.getmDepartment() != null && user.getmDepartment().getDeptName() != null)
+            tv_deptName.setText(user.getmDepartment().getDeptName());
+        else
+            tv_deptName.setText("请选择单位");
     }
 
     public void initData() {
