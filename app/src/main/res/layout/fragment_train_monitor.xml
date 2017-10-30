@@ -60,7 +60,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/margin_size_16"
                 android:layout_marginRight="@dimen/margin_size_16"
-                android:layout_marginTop="@dimen/_margin_size_6"
+                android:layout_marginTop="@dimen/margin_minus_6"
                 android:orientation="horizontal">
 
 
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_margin_size_20"
+                android:layout_marginLeft="@dimen/margin_minus_20"
                 android:orientation="horizontal">
 
                 <View
