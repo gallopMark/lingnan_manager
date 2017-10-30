@@ -1,13 +1,12 @@
 package com.haoyu.app.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.haoyu.app.activity.TeachingResearchCCActivity;
-import com.haoyu.app.adapter.TeachingCCAdapter;
+import com.haoyu.app.adapter.TeachingLessonAdapter;
 import com.haoyu.app.base.BaseFragment;
 import com.haoyu.app.basehelper.BaseRecyclerAdapter;
 import com.haoyu.app.dialog.CommentDialog;
@@ -48,10 +47,9 @@ public class TeachResearchCCFragment extends BaseFragment implements XRecyclerVi
     @BindView(R.id.emptyView)
     TextView emptyView;
     private List<TeachingLessonEntity> mDatas = new ArrayList<>();
-    private TeachingCCAdapter adapter;
+    private TeachingLessonAdapter adapter;
     private boolean isRefresh, isLoadMore;
     private int page = 1;
-    private int selected = -1;
 
     @Override
     public int createView() {
@@ -63,7 +61,7 @@ public class TeachResearchCCFragment extends BaseFragment implements XRecyclerVi
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRecyclerView.setLayoutManager(layoutManager);
-        adapter = new TeachingCCAdapter(context, mDatas);
+        adapter = new TeachingLessonAdapter(context, mDatas);
         xRecyclerView.setAdapter(adapter);
         xRecyclerView.setLoadingListener(this);
         emptyView.setText(getResources().getString(R.string.gen_class_emptylist));
@@ -147,20 +145,16 @@ public class TeachResearchCCFragment extends BaseFragment implements XRecyclerVi
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.RecyclerHolder holder, View view, int position) {
-                selected = position - 1;
+                int selected = position - 1;
                 if (selected >= 0 && selected < mDatas.size()) {
-                    String id = mDatas.get(selected).getId();
+                    TeachingLessonEntity entity = mDatas.get(selected);
                     Intent intent = new Intent(context, TeachingResearchCCActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("remainDay", mDatas.get(selected).getRemainDay());
-                    if (mDatas.get(position - 1).getmDiscussionRelations() != null && mDatas.get(position - 1).getmDiscussionRelations().size() > 0) {
-                        intent.putExtra("relationId", mDatas.get(position - 1).getmDiscussionRelations().get(0).getId());
-                    }
+                    intent.putExtra("entity", entity);
                     startActivity(intent);
                 }
             }
         });
-        adapter.setRequestClickCallBack(new TeachingCCAdapter.RequestClickCallBack() {
+        adapter.setRequestClickCallBack(new TeachingLessonAdapter.RequestClickCallBack() {
             @Override
             public void support(TeachingLessonEntity entity, int position) {
                 if (entity.isSupport())
@@ -284,32 +278,32 @@ public class TeachResearchCCFragment extends BaseFragment implements XRecyclerVi
             mDatas.add(0, entity);
             adapter.notifyDataSetChanged();
         } else if (event.getAction().equals(Action.DELETE_GEN_CLASS)) {   //删除创课
-            mDatas.remove(selected);
-            adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof TeachingLessonEntity) {
+                TeachingLessonEntity entity = (TeachingLessonEntity) event.obj;
+                mDatas.remove(entity);
+                adapter.notifyDataSetChanged();
+            }
             if (mDatas.size() == 0) {
                 xRecyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             }
-        } else if (event.getAction().equals(Action.ALTER_GEN_CLASS)) {   //修改创课
-            Bundle bundle = event.getBundle();
-            if (bundle != null) {
-                String title = bundle.getString("title");
-                String content = bundle.getString("content");
-                mDatas.get(selected).setTitle(title);
-                mDatas.get(selected).setContent(content);
-                adapter.notifyDataSetChanged();
-            }
         } else if (event.getAction().equals(Action.SUPPORT_STUDY_CLASS)) {    //创课点赞
-            if (mDatas.get(selected).getmDiscussionRelations() != null && mDatas.get(selected).getmDiscussionRelations().size() > 0) {
-                int supportNum = mDatas.get(selected).getmDiscussionRelations().get(0).getSupportNum() + 1;
-                mDatas.get(selected).getmDiscussionRelations().get(0).setSupportNum(supportNum);
-                adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof TeachingLessonEntity) {
+                TeachingLessonEntity entity = (TeachingLessonEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
+                }
             }
         } else if (event.getAction().equals(Action.GIVE_STUDY_ADVICE)) {   //创课提建议
-            if (mDatas.get(selected).getmDiscussionRelations() != null && mDatas.get(selected).getmDiscussionRelations().size() > 0) {
-                int replyNum = mDatas.get(selected).getmDiscussionRelations().get(0).getReplyNum() + 1;
-                mDatas.get(selected).getmDiscussionRelations().get(0).setReplyNum(replyNum);
-                adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof TeachingLessonEntity) {
+                TeachingLessonEntity entity = (TeachingLessonEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     }

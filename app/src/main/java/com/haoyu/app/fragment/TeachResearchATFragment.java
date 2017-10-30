@@ -45,7 +45,6 @@ public class TeachResearchATFragment extends BaseFragment implements XRecyclerVi
     private TeachingMovementAdapter adapter;
     private boolean isRefresh, isLoadMore;
     private int page = 1;
-    private int selected = -1;
 
     @Override
     public int createView() {
@@ -141,13 +140,11 @@ public class TeachResearchATFragment extends BaseFragment implements XRecyclerVi
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.RecyclerHolder holder, View view, int position) {
-                selected = position - 1;
+                int selected = position - 1;
                 if (selected >= 0 && selected < mDatas.size()) {
+                    TeachingMovementEntity entity = mDatas.get(selected);
                     Intent intent = new Intent(context, TeachingResearchATActivity.class);
-                    intent.putExtra("id", mDatas.get(selected).getId());
-                    if (mDatas.get(selected).getmMovementRelations() != null && mDatas.get(selected).getmMovementRelations().size() > 0) {
-                        intent.putExtra("relationId", mDatas.get(selected).getmMovementRelations().get(0).getId());
-                    }
+                    intent.putExtra("entity", entity);
                     startActivity(intent);
                 }
             }
@@ -173,36 +170,33 @@ public class TeachResearchATFragment extends BaseFragment implements XRecyclerVi
     @Override
     public void obBusEvent(MessageEvent event) {
         if (event.getAction().equals(Action.DELETE_MOVEMENT)) {   //删除活动
-            mDatas.remove(selected);
-            adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof TeachingMovementEntity) {
+                TeachingMovementEntity entity = (TeachingMovementEntity) event.obj;
+                mDatas.remove(entity);
+                adapter.notifyDataSetChanged();
+            }
             if (mDatas.size() == 0) {
                 xRecyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             }
         } else if (event.getAction().equals(Action.REGIST_MOVEMENT)) {   //活动报名
-            String id = (String) event.obj;
-            if (mDatas.get(selected).getmMovementRegisters().size() > 0) {
-                mDatas.get(selected).getmMovementRegisters().get(0).setId(id);
-            } else {
-                TeachingMovementEntity.MovementRegisters registers = new TeachingMovementEntity.MovementRegisters();
-                registers.setId(id);
-                mDatas.get(selected).getmMovementRegisters().add(registers);
-            }
-            if (mDatas.get(selected).getmMovementRelations().size() > 0) {
-                int participateNum = mDatas.get(selected).getmMovementRelations().get(0).getParticipateNum() + 1;
-                mDatas.get(selected).getmMovementRelations().get(0).setParticipateNum(participateNum);
-            }
-            adapter.notifyDataSetChanged();
-        } else if (event.getAction().equals(Action.UNREGIST_MOVEMENT)) {  //取消活动报名
-            if (mDatas.get(selected).getmMovementRelations().size() > 0) {
-                int participateNum = mDatas.get(selected).getmMovementRelations().get(0).getParticipateNum() - 1;
-                if (participateNum <= 0) {
-                    participateNum = 0;
+            if (event.obj != null && event.obj instanceof TeachingMovementEntity) {
+                TeachingMovementEntity entity = (TeachingMovementEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
                 }
-                mDatas.get(selected).getmMovementRelations().get(0).setParticipateNum(participateNum);
             }
-            mDatas.get(selected).getmMovementRegisters().clear();
-            adapter.notifyDataSetChanged();
+        } else if (event.getAction().equals(Action.UNREGIST_MOVEMENT)) {  //取消活动报名
+            if (event.obj != null && event.obj instanceof TeachingMovementEntity) {
+                TeachingMovementEntity entity = (TeachingMovementEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
+                }
+            }
         }
     }
 }

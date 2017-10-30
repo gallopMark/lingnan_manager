@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.haoyu.app.activity.TeachingResearchSSActivity;
-import com.haoyu.app.adapter.TeachingResearchAdapter;
+import com.haoyu.app.adapter.TeachingSSaysAdapter;
 import com.haoyu.app.base.BaseFragment;
 import com.haoyu.app.basehelper.BaseRecyclerAdapter;
 import com.haoyu.app.dialog.CommentDialog;
@@ -47,10 +47,9 @@ public class TeachResearchSSFragment extends BaseFragment implements XRecyclerVi
     @BindView(R.id.emptyView)
     TextView emptyView;
     private List<DiscussEntity> mDatas = new ArrayList<>();
-    private TeachingResearchAdapter adapter;
+    private TeachingSSaysAdapter adapter;
     private boolean isRefresh, isLoadMore;
     private int page = 1;
-    private int selected = -1;
 
     @Override
     public int createView() {
@@ -62,7 +61,7 @@ public class TeachResearchSSFragment extends BaseFragment implements XRecyclerVi
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRecyclerView.setLayoutManager(layoutManager);
-        adapter = new TeachingResearchAdapter(context, mDatas);
+        adapter = new TeachingSSaysAdapter(context, mDatas);
         xRecyclerView.setAdapter(adapter);
         xRecyclerView.setLoadingListener(this);
         emptyView.setText(getResources().getString(R.string.study_says_emptylist));
@@ -146,18 +145,16 @@ public class TeachResearchSSFragment extends BaseFragment implements XRecyclerVi
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.RecyclerHolder holder, View view, int position) {
-                selected = position - 1;
+                int selected = position - 1;
                 if (selected >= 0 && selected < mDatas.size()) {
-                    String id = mDatas.get(selected).getId();
-                    String uuid = mDatas.get(selected).getmDiscussionRelations().get(0).getId();
+                    DiscussEntity entity = mDatas.get(selected);
                     Intent intent = new Intent(context, TeachingResearchSSActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("uuid", uuid);
+                    intent.putExtra("entity", entity);
                     startActivity(intent);
                 }
             }
         });
-        adapter.setRequestClickCallBack(new TeachingResearchAdapter.RequestClickCallBack() {
+        adapter.setRequestClickCallBack(new TeachingSSaysAdapter.RequestClickCallBack() {
             @Override
             public void support(DiscussEntity entity, int position) {
                 if (entity.isSupport())
@@ -288,22 +285,29 @@ public class TeachResearchSSFragment extends BaseFragment implements XRecyclerVi
             mDatas.add(0, entity);
             adapter.notifyDataSetChanged();
         } else if (event.getAction().equals(Action.SUPPORT_STUDY_SAYS)) {   //研说点赞
-            int supportNum = event.arg1;
-            if (mDatas.get(selected).getmDiscussionRelations() != null
-                    && mDatas.get(selected).getmDiscussionRelations().size() > 0) {
-                mDatas.get(selected).getmDiscussionRelations().get(0).setSupportNum(supportNum);
-                adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof DiscussEntity) {
+                DiscussEntity entity = (DiscussEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
+                }
             }
         } else if (event.getAction().equals(Action.CREATE_MAIN_REPLY)) {    //创建研说评论
-            if (mDatas.get(selected).getmDiscussionRelations() != null
-                    && mDatas.get(selected).getmDiscussionRelations().size() > 0) {
-                int replyNum = mDatas.get(selected).getmDiscussionRelations().get(0).getReplyNum() + 1;
-                mDatas.get(selected).getmDiscussionRelations().get(0).setReplyNum(replyNum);
-                adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof DiscussEntity) {
+                DiscussEntity entity = (DiscussEntity) event.obj;
+                int selected = mDatas.indexOf(entity);
+                if (selected != -1) {
+                    mDatas.set(selected, entity);
+                    adapter.notifyDataSetChanged();
+                }
             }
         } else if (event.getAction().equals(Action.DELETE_STUDY_SAYS)) {   //删除研说
-            mDatas.remove(selected);
-            adapter.notifyDataSetChanged();
+            if (event.obj != null && event.obj instanceof DiscussEntity) {
+                DiscussEntity entity = (DiscussEntity) event.obj;
+                mDatas.remove(entity);
+                adapter.notifyDataSetChanged();
+            }
             if (mDatas.size() == 0) {
                 xRecyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
