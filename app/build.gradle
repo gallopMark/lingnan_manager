@@ -53,7 +53,7 @@ dependencies {
     /*greenDao*/
 //    compile 'org.greenrobot:greendao:3.2.0'
     /*htmlTextView*/
-    compile 'org.sufficientlysecure:html-textview:3.4'
+    compile 'org.sufficientlysecure:html-textview:3.5'
     /*butterknife*/
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
